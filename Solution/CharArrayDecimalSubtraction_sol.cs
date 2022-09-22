@@ -1,6 +1,6 @@
 namespace CharArrayDecimalSubtraction;
 
-public class UnitTest1_blank
+public class UnitTest1_Solution
 {
     /*
         Subtract array a from array b and return result

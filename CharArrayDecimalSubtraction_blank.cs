@@ -1,6 +1,6 @@
 namespace GResearch.CharArrayDecimalSubtraction;
 
-public class UnitTest1
+public class UnitTest1_Blank
 {
     /*
         Subtract array a from array b and return result
