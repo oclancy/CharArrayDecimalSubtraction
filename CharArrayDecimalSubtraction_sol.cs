@@ -37,6 +37,9 @@ public class UnitTest1_blank
 
     private char[] CharArrayDecimalSubtraction(char[] a, char[] b)
     {
+            var aAsInt = GetCharAsInt(a);
+            var bAsInt = GetCharAsInt(b);
+
             var aDpIndex = GetDecimalIndex(a);
             var bDpIndex = GetDecimalIndex(b);
 
@@ -46,13 +49,11 @@ public class UnitTest1_blank
             var aDps = aDpIndex== -1? 0: aLength - (aDpIndex + 1);
             var bDps = bDpIndex== -1? 0: bLength - (bDpIndex + 1);
             var useDps = Math.Max(aDps,bDps);
+
+//            Console.WriteLine( aAsInt );
+//            Console.WriteLine( bAsInt );
             
-            var aAsInt = GetCharAsInt(a);
-            var bAsInt = GetCharAsInt(b);
-
-            Console.WriteLine( aAsInt );
-            Console.WriteLine( bAsInt );
-
+            //adjust to same multiplication factor
             if(aDps > bDps) {
                 for(var f=1; f<aDps-bDps; ++f)
                     bAsInt *= 10;
@@ -63,15 +64,14 @@ public class UnitTest1_blank
             }                    
 
 
-            Console.WriteLine( aAsInt );
-            Console.WriteLine( bAsInt );
+//            Console.WriteLine( aAsInt );
+//            Console.WriteLine( bAsInt );
 
+            // actual subtraction
             var retVal = (aAsInt - bAsInt);
             var isNegative = retVal<0;
 
             List<char> retList = new List<char>();
-            if(isNegative) retList.Add('-');
-
             retVal = Math.Abs(retVal);
             int zero= (int)'0';
             while(retVal>0)
@@ -80,6 +80,7 @@ public class UnitTest1_blank
                 retVal/=10;
             }
 
+            // reverse because we added in largest first
             retList.Reverse();
 
             if(useDps ==0 ){
@@ -90,6 +91,8 @@ public class UnitTest1_blank
                 if(retList.Count-useDps == 0) retList.Insert(0,'0'); //leading zero
                 retList.Insert(retList.Count-useDps,'.');
             }
+            
+            if(isNegative) retList.Insert(0,'-');
 
             return retList.ToArray();
     }
@@ -99,6 +102,9 @@ public class UnitTest1_blank
     {
         // 5 - 3 = 2.0 
         Assert.Equal(new []{'2','.','0'}, CharArrayDecimalSubtraction(new []{'5'}, new []{'3'}));
+
+        // 3 - 5 = -2.0 
+        Assert.Equal(new []{'-','2','.','0'}, CharArrayDecimalSubtraction(new []{'3'}, new []{'5'}));
 
         // 11.0 - 10.0 = 1.0 
         Assert.Equal(new []{'1','.','0'}, CharArrayDecimalSubtraction(new []{'1','1','.','0'}, new []{'1','0','.','0'}));

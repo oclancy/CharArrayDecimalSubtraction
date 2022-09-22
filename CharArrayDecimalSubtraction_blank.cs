@@ -8,13 +8,6 @@ public class UnitTest1
         Do not use types double, decimal, float or functions that return same (e.g. Math.Pow)
     */
 
-    private int GetDecimalIndex(char[] a)
-    {
-        for(var i=0; i<a.Length-1; ++i)
-            if(a[i]=='.') return i;
-
-        return -1;
-    }
 
     private char[] CharArrayDecimalSubtraction(char[] a, char[] b)
     {
